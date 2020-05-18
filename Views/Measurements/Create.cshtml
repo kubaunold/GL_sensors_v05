@@ -1,0 +1,60 @@
+﻿@model GL_sensors_v0_4.Models.Measurement
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Measurement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="sensorId" class="control-label"></label>
+                <input asp-for="sensorId" class="form-control" />
+                <span asp-validation-for="sensorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pm_1_0" class="control-label"></label>
+                <input asp-for="pm_1_0" class="form-control" />
+                <span asp-validation-for="pm_1_0" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pm_2_5" class="control-label"></label>
+                <input asp-for="pm_2_5" class="form-control" />
+                <span asp-validation-for="pm_2_5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pm_10" class="control-label"></label>
+                <input asp-for="pm_10" class="form-control" />
+                <span asp-validation-for="pm_10" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="temp" class="control-label"></label>
+                <input asp-for="temp" class="form-control" />
+                <span asp-validation-for="temp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hum" class="control-label"></label>
+                <input asp-for="hum" class="form-control" />
+                <span asp-validation-for="hum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="time" class="control-label"></label>
+                <input asp-for="time" class="form-control" />
+                <span asp-validation-for="time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

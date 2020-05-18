@@ -1,0 +1,60 @@
+﻿@model GL_sensors_v0_4.Models.Measurement
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Measurement</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.sensorId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.sensorId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.pm_1_0)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.pm_1_0)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.pm_2_5)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.pm_2_5)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.pm_10)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.pm_10)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.temp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.temp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.hum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.hum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.time)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
