@@ -7,3 +7,69 @@
     <h6 class="dropdown">By Michał Jaroszczuk, Jakub Unold, Bartosz Rudyk and Kacper Starościak</h6>
     @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>
+
+<body>
+        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //$("#btnGetDetails").click(function () {
+                $.ajax({
+                    //base address/controller/Action
+                    url: 'https://localhost:44327/Measurements/GetLast',
+                    type: 'GET',
+                    data: {
+                        //Passing Input parameter
+                        id: '1'
+                    },
+                    success: function (result) {
+                        //write something
+                        //alert(result);
+                        alert("success");
+                        var dupa = JSON.parse(result);
+                        console.log(dupa);
+                        var pm = dupa.pm_10;
+                        console.log(pm);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+                return false;
+                //});
+            });
+        </script>
+    </body >
+
+@*<body>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //var comments = $('#inline-username').val();
+            //var selectedId = $('#hdnSelectedId').val();
+
+            $.ajax({
+                url: 'https://localhost:44327/Measurements/GetLast',
+                dataType: "json",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8', //define a contentType of your request
+                cache: false,
+                data: {
+                    //Passing Input parameter
+                    id: $('#txtId').val()
+                },
+                success: function (data) {
+                    // data is your result from controller
+                    if (true) {
+                        //alert(data.message);
+                        alert('success');
+                    }
+                },
+                error: function () {
+                    alert('error');
+                }
+            });
+        });
+    </script>
+</body>*@

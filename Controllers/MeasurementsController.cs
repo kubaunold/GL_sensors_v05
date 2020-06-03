@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GL_sensors_v0_4.Data;
 using GL_sensors_v0_4.Models;
+using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 
 namespace GL_sensors_v0_4.Controllers
 {
@@ -19,7 +21,23 @@ namespace GL_sensors_v0_4.Controllers
         //    _context = context;
         //}
 
-
+        [HttpGet]
+        public ActionResult GetLast(int id)
+        {
+            //write logic here to get data
+            var output = _context.Measurements.Where(e => e.sensorId == id).ToList();
+            //List<Measurement> array = output.ToList();
+            Measurement last = new Measurement();
+            last = output[0];
+            foreach(var i in output)
+            {
+                if (i.time > last.time) last = i;
+            }
+            string json = last.ToJson();
+            //JsonObject _json = json;
+            return Json(json);
+            
+        }
 
         public async Task<IActionResult> ReturnMeasurements(int? id)
         {

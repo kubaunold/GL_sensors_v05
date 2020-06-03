@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,5 +16,14 @@ namespace GL_sensors_v0_4.Models
         public double temp { get; set; }        //temperature (°C)
         public double hum { get; set; }         //humidity (%)
         public DateTime time { get; set; }      //time stamp of the measurment of format ("%Y-%m-%d %H:%M:%S")
+
+        public string ToJson()
+        {
+            string json;
+            json = JsonConvert.SerializeObject(this);
+            return json;
+        }
+    
+    
     }
 }
