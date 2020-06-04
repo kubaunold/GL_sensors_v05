@@ -25,7 +25,7 @@ namespace GL_sensors_v0_4.Controllers
         public ActionResult GetLast(int id)
         {
             //write logic here to get data
-            var output = _context.Measurements.Where(e => e.sensorId == id).ToList();
+            var output = _context.Measurements.Where(e => e.sensorId == id-1).ToList();
             //List<Measurement> array = output.ToList();
             Measurement last = new Measurement();
             last = output[0];

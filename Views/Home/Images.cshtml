@@ -23,12 +23,12 @@
         <script type="text/javascript">
 
             var device1 = { id: "1", hight: "224", width: "248", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
-            var measure1 = { id: "1",pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var measure1 = { id: "1", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
             var device2 = { id: "2", hight: "353", width: "156", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
-            var measure2 = { id: "2",pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var measure2 = { id: "2", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
             var device3 = { id: "3", hight: "333", width: "208", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
             var measure3 = { id: "3", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
-            var newmeasure = { id:"0",pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var newmeasure = { id: "0", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
             var radius = 0;
             //var pm_2_5tab =[0, 0, 0];
             //var pm_1_0tab =[0, 0, 0];
@@ -95,7 +95,7 @@
             //console.log(measure1);
             //console.log(measure2);
             //console.log(measure3);
-            
+
 
 
             //function measure_update(measure, newmeasure) {
@@ -107,45 +107,45 @@
 
             //}
 
-            
 
 
-                //switch (Id) {
-                //    case 1:
-                //        //measure_update(measure1, newmeasure);
-                //        measure1 = newmeasure;
-                //        console.log("meas1 upd");
-                //        break;
-                //    case 2:
-                //        //measure_update(measure2, newmeasure);
-                //        measure2 = newmeasure;
-                //        console.log("meas2 upd");
-                //        break;
-                //    case 3:
-                //        //measure_update(measure3, newmeasure);
-                //        measure3 = newmeasure;
-                //        console.log("meas3 upd");
-                //        break;
-                //}
+
+            //switch (Id) {
+            //    case 1:
+            //        //measure_update(measure1, newmeasure);
+            //        measure1 = newmeasure;
+            //        console.log("meas1 upd");
+            //        break;
+            //    case 2:
+            //        //measure_update(measure2, newmeasure);
+            //        measure2 = newmeasure;
+            //        console.log("meas2 upd");
+            //        break;
+            //    case 3:
+            //        //measure_update(measure3, newmeasure);
+            //        measure3 = newmeasure;
+            //        console.log("meas3 upd");
+            //        break;
+            //}
 
 
-                //if (Id == 1) {
-                //    measure1 = newmeasure;
-                //    console.log("meas1 upd");
-                //}
-                //else if (Id == 2) {
-                //    measure2 = newmeasure;
-                //    console.log("meas2 upd");
-                //}
-                //else if (Id == 3) {
-                //    measure3 = newmeasure;
-                //    console.log("meas3 upd");
-                //}
-
-            
+            //if (Id == 1) {
+            //    measure1 = newmeasure;
+            //    console.log("meas1 upd");
+            //}
+            //else if (Id == 2) {
+            //    measure2 = newmeasure;
+            //    console.log("meas2 upd");
+            //}
+            //else if (Id == 3) {
+            //    measure3 = newmeasure;
+            //    console.log("meas3 upd");
+            //}
 
 
-            
+
+
+
 
 
             var canvas = d3.select("#tlo")
@@ -279,6 +279,40 @@
 
 
             function deviceChooser(device, measure) {
+                if (device.tempnorm < measure.temp) {
+                    color = "green";
+                    radius = measure.tempnorm - device.temp;
+                    alert(device.width, device.hight, color, radius);
+                }
+                else if (device.pm_1_0norm < measure.pm_1_0) {
+                    color = "red"
+                    radius = (measure.pm_1_0 - device.pm_1_0norm);
+                    alert(device.width, device.hight, color, radius);
+                }
+                else if (device.pm_2_5norm < measure.pm_2_5) {
+                    color = "orange"
+                    radius = measure.pm_2_5 - device.pm_2_5norm;
+                    alert(device.width, device.hight, color, radius);
+                }
+                else if (device.pm_10norm < measure.pm_10) {
+                    color = "yellow"
+                    radius = measure.pm_10 - device.pm_10norm;
+                    alert(device.width, device.hight, color, radius);
+                }
+                else if (device.tempnorm < measure.temp) {
+                    color = "green";
+                    radius = measure.tempnorm - device.temp;
+                    alert(device.width, device.hight, color, radius);
+                }
+                else if (device.humnorm < measure.hum) {
+                    color = "yellow"
+                    radius = measure.humnorm - device.hum;
+                    alert(device.width, device.hight, color, radius);
+                }
+                //console.log("device chooser");
+            }
+
+            function deviceChooser2(device, measure) {
                 if (device.pm_1_0norm < measure.pm_1_0) {
                     color = "red"
                     radius = (measure.pm_1_0 - device.pm_1_0norm);
@@ -295,7 +329,7 @@
                     alert(device.width, device.hight, color, radius);
                 }
                 else if (device.tempnorm < measure.temp) {
-                    color = "yellow"
+                    color = "green";
                     radius = measure.tempnorm - device.temp;
                     alert(device.width, device.hight, color, radius);
                 }
@@ -318,7 +352,7 @@
 
 
 
-            function update(device,measure) {
+            function update(device, measure) {
                 $(document).ready(function () {
                     //$("#btnGetDetails").click(function () {
                     $.ajax({
@@ -346,7 +380,8 @@
                             measure.hum = last.hum;
                             measure.pm_2_5 = last.pm_2_5;
                             measure.id = last.sensorId;
-                            deviceChooser(device, measure);
+                            //deviceChooser(device, measure);
+                            deviceChooser2(device, measure);
                             //deviceChooser(device2, measure2);
                             //deviceChooser(device3, measure3);
                             //console.log("wewnatrz get");
@@ -360,17 +395,17 @@
                     //});
                 });
             }
-            update(device1,measure1);
-            update(device2,measure2);
-            update(device3,measure3);
+            update(device1, measure1);
+            update(device2, measure2);
+            update(device3, measure3);
             console.log("mea1:");
             console.log(measure1);
             console.log("mea2:");
             console.log(measure2);
             console.log("mea3:");
             console.log(measure3);
-            
-           
+
+
 
             /*
             for (var i = 1; i <= numberOfTheDevices; i++) {
