@@ -44,7 +44,7 @@ namespace GL_sensors_v0_4.Controllers
             //var query = from Measurements in _context
             //            where Measurements.sensorId == id
             //            select Measurements.temp;
-            var gL_Sensors_v0_2Context = _context.Measurements.Where(e => e.sensorId == id - 1);
+            var gL_Sensors_v0_2Context = _context.Measurements.Where(e => e.sensorId == id);
             return View(await gL_Sensors_v0_2Context.ToListAsync());
             //return View();
         }

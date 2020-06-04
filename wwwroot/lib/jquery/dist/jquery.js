@@ -1196,7 +1196,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 		function( tag, context ) {
 			var elem,
-				tmp = [],
+				temp = [],
 				i = 0,
 				// By happy coincidence, a (broken) gEBTN appears on DocumentFragment nodes too
 				results = context.getElementsByTagName( tag );
@@ -1205,11 +1205,11 @@ setDocument = Sizzle.setDocument = function( node ) {
 			if ( tag === "*" ) {
 				while ( (elem = results[i++]) ) {
 					if ( elem.nodeType === 1 ) {
-						tmp.push( elem );
+						temp.push( elem );
 					}
 				}
 
-				return tmp;
+				return temp;
 			}
 			return results;
 		};
@@ -4431,7 +4431,7 @@ jQuery.fn.extend( {
 	// Get a promise resolved when queues of a certain type
 	// are emptied (fx is the type by default)
 	promise: function( type, obj ) {
-		var tmp,
+		var temp,
 			count = 1,
 			defer = jQuery.Deferred(),
 			elements = this,
@@ -4449,10 +4449,10 @@ jQuery.fn.extend( {
 		type = type || "fx";
 
 		while ( i-- ) {
-			tmp = dataPriv.get( elements[ i ], type + "queueHooks" );
-			if ( tmp && tmp.empty ) {
+			temp = dataPriv.get( elements[ i ], type + "queueHooks" );
+			if ( temp && temp.empty ) {
 				count++;
-				tmp.empty.add( resolve );
+				temp.empty.add( resolve );
 			}
 		}
 		resolve();
@@ -4741,7 +4741,7 @@ function setGlobalEval( elems, refElements ) {
 var rhtml = /<|&#?\w+;/;
 
 function buildFragment( elems, context, scripts, selection, ignored ) {
-	var elem, tmp, tag, wrap, contains, j,
+	var elem, temp, tag, wrap, contains, j,
 		fragment = context.createDocumentFragment(),
 		nodes = [],
 		i = 0,
@@ -4765,28 +4765,28 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 
 			// Convert html into DOM nodes
 			} else {
-				tmp = tmp || fragment.appendChild( context.createElement( "div" ) );
+				temp = temp || fragment.appendChild( context.createElement( "div" ) );
 
 				// Deserialize a standard representation
 				tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
 				wrap = wrapMap[ tag ] || wrapMap._default;
-				tmp.innerHTML = wrap[ 1 ] + jQuery.htmlPrefilter( elem ) + wrap[ 2 ];
+				temp.innerHTML = wrap[ 1 ] + jQuery.htmlPrefilter( elem ) + wrap[ 2 ];
 
 				// Descend through wrappers to the right content
 				j = wrap[ 0 ];
 				while ( j-- ) {
-					tmp = tmp.lastChild;
+					temp = temp.lastChild;
 				}
 
 				// Support: Android <=4.0 only, PhantomJS 1 only
 				// push.apply(_, arraylike) throws on ancient WebKit
-				jQuery.merge( nodes, tmp.childNodes );
+				jQuery.merge( nodes, temp.childNodes );
 
 				// Remember the top-level container
-				tmp = fragment.firstChild;
+				temp = fragment.firstChild;
 
 				// Ensure the created nodes are orphaned (#12392)
-				tmp.textContent = "";
+				temp.textContent = "";
 			}
 		}
 	}
@@ -4808,17 +4808,17 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 		contains = jQuery.contains( elem.ownerDocument, elem );
 
 		// Append to fragment
-		tmp = getAll( fragment.appendChild( elem ), "script" );
+		temp = getAll( fragment.appendChild( elem ), "script" );
 
 		// Preserve script evaluation history
 		if ( contains ) {
-			setGlobalEval( tmp );
+			setGlobalEval( temp );
 		}
 
 		// Capture executables
 		if ( scripts ) {
 			j = 0;
-			while ( ( elem = tmp[ j++ ] ) ) {
+			while ( ( elem = temp[ j++ ] ) ) {
 				if ( rscriptType.test( elem.type || "" ) ) {
 					scripts.push( elem );
 				}
@@ -4950,7 +4950,7 @@ jQuery.event = {
 
 	add: function( elem, types, handler, data, selector ) {
 
-		var handleObjIn, eventHandle, tmp,
+		var handleObjIn, eventHandle, temp,
 			events, t, handleObj,
 			special, handlers, type, namespaces, origType,
 			elemData = dataPriv.get( elem );
@@ -4996,9 +4996,9 @@ jQuery.event = {
 		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
 		t = types.length;
 		while ( t-- ) {
-			tmp = rtypenamespace.exec( types[ t ] ) || [];
-			type = origType = tmp[ 1 ];
-			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
+			temp = rtypenamespace.exec( types[ t ] ) || [];
+			type = origType = temp[ 1 ];
+			namespaces = ( temp[ 2 ] || "" ).split( "." ).sort();
 
 			// There *must* be a type, no attaching namespace-only handlers
 			if ( !type ) {
@@ -5065,7 +5065,7 @@ jQuery.event = {
 	// Detach an event or set of events from an element
 	remove: function( elem, types, handler, selector, mappedTypes ) {
 
-		var j, origCount, tmp,
+		var j, origCount, temp,
 			events, t, handleObj,
 			special, handlers, type, namespaces, origType,
 			elemData = dataPriv.hasData( elem ) && dataPriv.get( elem );
@@ -5078,9 +5078,9 @@ jQuery.event = {
 		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
 		t = types.length;
 		while ( t-- ) {
-			tmp = rtypenamespace.exec( types[ t ] ) || [];
-			type = origType = tmp[ 1 ];
-			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
+			temp = rtypenamespace.exec( types[ t ] ) || [];
+			type = origType = temp[ 1 ];
+			namespaces = ( temp[ 2 ] || "" ).split( "." ).sort();
 
 			// Unbind all events (on this namespace, if provided) for the element
 			if ( !type ) {
@@ -5093,7 +5093,7 @@ jQuery.event = {
 			special = jQuery.event.special[ type ] || {};
 			type = ( selector ? special.delegateType : special.bindType ) || type;
 			handlers = events[ type ] || [];
-			tmp = tmp[ 2 ] &&
+			temp = temp[ 2 ] &&
 				new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" );
 
 			// Remove matching events
@@ -5103,7 +5103,7 @@ jQuery.event = {
 
 				if ( ( mappedTypes || origType === handleObj.origType ) &&
 					( !handler || handler.guid === handleObj.guid ) &&
-					( !tmp || tmp.test( handleObj.namespace ) ) &&
+					( !temp || temp.test( handleObj.namespace ) ) &&
 					( !selector || selector === handleObj.selector ||
 						selector === "**" && handleObj.selector ) ) {
 					handlers.splice( j, 1 );
@@ -8160,12 +8160,12 @@ jQuery.extend( jQuery.event, {
 
 	trigger: function( event, data, elem, onlyHandlers ) {
 
-		var i, cur, tmp, bubbleType, ontype, handle, special, lastElement,
+		var i, cur, temp, bubbleType, ontype, handle, special, lastElement,
 			eventPath = [ elem || document ],
 			type = hasOwn.call( event, "type" ) ? event.type : event,
 			namespaces = hasOwn.call( event, "namespace" ) ? event.namespace.split( "." ) : [];
 
-		cur = lastElement = tmp = elem = elem || document;
+		cur = lastElement = temp = elem = elem || document;
 
 		// Don't do events on text and comment nodes
 		if ( elem.nodeType === 3 || elem.nodeType === 8 ) {
@@ -8225,12 +8225,12 @@ jQuery.extend( jQuery.event, {
 			}
 			for ( ; cur; cur = cur.parentNode ) {
 				eventPath.push( cur );
-				tmp = cur;
+				temp = cur;
 			}
 
 			// Only add window if we got to document (e.g., not plain obj or detached DOM)
-			if ( tmp === ( elem.ownerDocument || document ) ) {
-				eventPath.push( tmp.defaultView || tmp.parentWindow || window );
+			if ( temp === ( elem.ownerDocument || document ) ) {
+				eventPath.push( temp.defaultView || temp.parentWindow || window );
 			}
 		}
 
@@ -8272,9 +8272,9 @@ jQuery.extend( jQuery.event, {
 				if ( ontype && isFunction( elem[ type ] ) && !isWindow( elem ) ) {
 
 					// Don't re-trigger an onFOO event when we call its FOO() method
-					tmp = elem[ ontype ];
+					temp = elem[ ontype ];
 
-					if ( tmp ) {
+					if ( temp ) {
 						elem[ ontype ] = null;
 					}
 
@@ -8293,8 +8293,8 @@ jQuery.extend( jQuery.event, {
 
 					jQuery.event.triggered = undefined;
 
-					if ( tmp ) {
-						elem[ ontype ] = tmp;
+					if ( temp ) {
+						elem[ ontype ] = temp;
 					}
 				}
 			}
@@ -8705,7 +8705,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
  * Also sets the responseXXX fields on the jqXHR instance
  */
 function ajaxConvert( s, response, jqXHR, isSuccess ) {
-	var conv2, current, conv, tmp, prev,
+	var conv2, current, conv, temp, prev,
 		converters = {},
 
 		// Work with a copy of dataTypes in case we need to modify it for conversion
@@ -8753,12 +8753,12 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 					for ( conv2 in converters ) {
 
 						// If conv2 outputs current
-						tmp = conv2.split( " " );
-						if ( tmp[ 1 ] === current ) {
+						temp = conv2.split( " " );
+						if ( temp[ 1 ] === current ) {
 
 							// If prev can be converted to accepted input
-							conv = converters[ prev + " " + tmp[ 0 ] ] ||
-								converters[ "* " + tmp[ 0 ] ];
+							conv = converters[ prev + " " + temp[ 0 ] ] ||
+								converters[ "* " + temp[ 0 ] ];
 							if ( conv ) {
 
 								// Condense equivalence converters
@@ -8767,8 +8767,8 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 								// Otherwise, insert the intermediate dataType
 								} else if ( converters[ conv2 ] !== true ) {
-									current = tmp[ 0 ];
-									dataTypes.unshift( tmp[ 1 ] );
+									current = temp[ 0 ];
+									dataTypes.unshift( temp[ 1 ] );
 								}
 								break;
 							}
@@ -10248,12 +10248,12 @@ jQuery.fn.extend( {
 // jQuery.proxy is deprecated to promote standards (specifically Function#bind)
 // However, it is not slated for removal any time soon
 jQuery.proxy = function( fn, context ) {
-	var tmp, args, proxy;
+	var temp, args, proxy;
 
 	if ( typeof context === "string" ) {
-		tmp = fn[ context ];
+		temp = fn[ context ];
 		context = fn;
-		fn = tmp;
+		fn = temp;
 	}
 
 	// Quick check to determine if target is callable, in the spec

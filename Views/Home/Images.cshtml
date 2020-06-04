@@ -8,151 +8,427 @@
 
     <script src="https://d3js.org/d3.v3.min.js"></script>
 
-    <link rel="stylesheet" href="~/css/officeMap.css" />
+    <link rel="stylesheet" href="~/css/OfficeLayoutStyle.css" />
 
 </head>
 
 
 <body>
 
+
     <div class="box" , id="tlo">
-        <script>
+
+        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            var device1 = { id: "1", hight: "224", width: "248", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
+            var measure1 = { id: "1",pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var device2 = { id: "2", hight: "353", width: "156", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
+            var measure2 = { id: "2",pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var device3 = { id: "3", hight: "333", width: "208", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
+            var measure3 = { id: "3", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var newmeasure = { id:"0",pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
+            var radius = 0;
+            //var pm_2_5tab =[0, 0, 0];
+            //var pm_1_0tab =[0, 0, 0];
+            //var pm_10tab =[0, 0, 0];
+            //var temptab =[0, 0, 0];
+            //var humtab =[0, 0, 0];
+            //var ajajaj = ['1', '2', '3'];
+            //for (var i = 0; i < 3; ++i)
+            //{
+            //    var j = ajajaj[i];
+            //    $(document).ready(function () {
+            //        //$("#btnGetDetails").click(function () {
+            //        $.ajax({
+            //            //base address/controller/Action
+            //            url: 'https://localhost:44327/Measurements/GetLast',
+            //            type: 'GET',
+            //            data: {
+            //                //Passing Input parameter
+            //                id: j
+            //            },
+            //            success: function (result) {
+            //                //write something
+            //                //alert(result);
+            //                //alert("success");
+            //                var newmeasure = JSON.parse(result);
+            //                console.log(newmeasure);
+            //                //var pm = newmeasure.pm_10;
+            //                //console.log(pm);
+            //                pm_2_5tab[i] = newmeasure.pm_2_5;
+            //                pm_1_0tab[i] = newmeasure.pm_1_0;
+            //                pm_10tab[i] = newmeasure.pm_10;
+            //                temptab[i] = newmeasure.temp;
+            //                humtab[i] = newmeasure.hum;
+            //                //console.log(pm_2_5tab[i]);
+            //            },
+            //            error: function () {
+            //                alert("error");
+            //            }
+            //        });
+            //        return false;
+            //        //});
+            //    });
+            //}
+            //    measure1.pm_2_5 = parseInt(pm_2_5tab[0]);
+            //    measure2.pm_2_5 = String(pm_2_5tab[1]);
+            //    measure3.pm_2_5 = pm_2_5tab[2];
+
+            //    measure1.pm_1_0 = pm_1_0tab[0];
+            //    measure2.pm_1_0 = pm_1_0tab[1];
+            //    measure3.pm_1_0 = pm_1_0tab[2];
+
+            //    measure1.pm_10 = pm_10tab[0];
+            //    measure2.pm_10 = pm_10tab[1];
+            //    measure3.pm_10 = pm_10tab[2];
+
+            //    measure1.temp = temptab[0];
+            //    measure2.temp = temptab[1];
+            //    measure3.temp = temptab[2];
+
+            //    measure1.hum = humtab[0];
+            //    measure2.hum = humtab[1];
+            //measure3.hum = humtab[2];
+
+            //console.log(measure1);
+            //console.log(measure2);
+            //console.log(measure3);
+            
 
 
-                var device1 = { id: "1", hight: "340", width: "379", param25norm: "2", param5norm: "2", param10norm: "2" }
-                var measure1 = { param25: "0", param5: "0", param10: "0" }
-                var device2 = { id: "2", hight: "535", width: "240", param25norm: "2", param5norm: "2", param10norm: "2" }
-                var measure2 = { param25: "0", param5: "0", param10: "0" }
-                var device3 = { id: "3", hight: "506", width: "319", param25norm: "2", param5norm: "2", param10norm: "2" }
-                var measure3 = { param25: "0", param5: "0", param10: "0" }
+            //function measure_update(measure, newmeasure) {
+            //    measure.pm_2_5 = newmeasure.pm_2_5;//.toString();
+            //    measure.pm_1_0 = newmeasure.pm_1_0.toString();
+            //    measure.pm_10 = newmeasure.pm_10.toString();
+            //    measure.temp = newmeasure.temp.toString();
+            //    measure.hum = newmeasure.hum.toString();
 
-                var radius = 0;
+            //}
 
-                var canvas = d3.select("#tlo")
-                    .append("svg")
-                    .attr("width", 1000)
-                    .attr("height", 1000);
+            
 
-                function trans(circleAct, rad) {
-                    circleAct.transition()
-                        .duration(1000)
-                        .attr("r", 20 + (rad * 2))
-                        .transition()
-                        .duration(1)
-                        .attr("r", 0)
-                        .each("end", function () { trans(circleAct, rad); });
+
+                //switch (Id) {
+                //    case 1:
+                //        //measure_update(measure1, newmeasure);
+                //        measure1 = newmeasure;
+                //        console.log("meas1 upd");
+                //        break;
+                //    case 2:
+                //        //measure_update(measure2, newmeasure);
+                //        measure2 = newmeasure;
+                //        console.log("meas2 upd");
+                //        break;
+                //    case 3:
+                //        //measure_update(measure3, newmeasure);
+                //        measure3 = newmeasure;
+                //        console.log("meas3 upd");
+                //        break;
+                //}
+
+
+                //if (Id == 1) {
+                //    measure1 = newmeasure;
+                //    console.log("meas1 upd");
+                //}
+                //else if (Id == 2) {
+                //    measure2 = newmeasure;
+                //    console.log("meas2 upd");
+                //}
+                //else if (Id == 3) {
+                //    measure3 = newmeasure;
+                //    console.log("meas3 upd");
+                //}
+
+            
+
+
+            
+
+
+            var canvas = d3.select("#tlo")
+                .append("svg")
+                .attr("width", 1000)
+                .attr("height", 1000);
+
+
+
+
+            function trans(circleAct, rad) {
+                circleAct.transition()
+                    .duration(1000)
+                    .attr("r", 20 + (rad * 2))
+                    .transition()
+                    .duration(1)
+                    .attr("r", 0)
+                    .each("end", function () { trans(circleAct, rad); });
+            }
+
+            function alert(wid, hig, col, rad) {
+                var circ = canvas.append("circle")
+                    .attr("cx", wid)
+                    .attr("cy", hig)
+                    .attr("r", 3)
+                    .attr("stroke", "black")
+                    .attr("fill", col);
+
+                var circle = canvas.append("circle")
+                    .attr("cx", wid)
+                    .attr("cy", hig)
+                    .attr("r", 10)
+                    .attr("fill", col)
+                    .attr("opacity", 0.5);
+
+                trans(circle, rad);
+            }
+
+            /*
+            function deviceChooser(id) {
+                switch (id) {
+
+                    case 1:
+                        if (device1.pm_1_0norm < measure1.pm_1_0) {
+                            color = "red"
+                            radius = measure1.pm_1_0 - device1.pm_1_0norm;
+                            alert(device1.width, device1.hight, color, radius);
+                        }
+                        else if (device1.pm_2_5norm < measure1.pm_2_5) {
+                            color = "orange"
+                            radius = measure1.pm_2_5 - device1.pm_2_5norm;
+                            alert(device1.width, device1.hight, color, radius);
+                        }
+                        else if (device1.pm_10norm < measure1.pm_10) {
+                            color = "yellow"
+                            radius = measure1.pm_10 - device1.pm_10norm;
+                            alert(device1.width, device1.hight, color, radius);
+                        }
+                        else if (device1.tempnorm < measure1.temp) {
+                            color = "yellow"
+                            radius = measure1.tempnorm - device1.temp;
+                            alert(device1.width, device1.hight, color, radius);
+                        }
+                        else if (device1.humnorm < measure1.hum) {
+                            color = "yellow"
+                            radius = measure1.humnorm - device1.hum;
+                            alert(device1.width, device1.hight, color, radius);
+                        }
+                        break;
+
+                    case 2:
+                        if (device2.pm_1_0norm < measure2.pm_1_0) {
+                            color = "red"
+                            radius = measure2.pm_1_0 - device2.pm_1_0norm;
+                            alert(device2.width, device2.hight, color, radius);
+                        }
+                        else if (device2.pm_2_5norm < measure2.pm_2_5) {
+                            color = "orange"
+                            radius = measure2.pm_2_5 - device2.pm_2_5norm;
+                            alert(device2.width, device2.hight, color, radius);
+                        }
+                        else if (device2.pm_10norm < measure2.pm_10) {
+                            color = "yellow"
+                            radius = measure2.pm_10 - device2.pm_10norm;
+                            alert(device2.width, device2.hight, color, radius);
+                        }
+                        else if (device2.tempnorm < measure2.temp) {
+                            color = "yellow"
+                            radius = measure2.tempnorm - device2.temp;
+                            alert(device2.width, device2.hight, color, radius);
+                        }
+                        else if (device2.humnorm < measure2.hum) {
+                            color = "yellow"
+                            radius = measure2.humnorm - device2.hum;
+                            alert(device2.width, device2.hight, color, radius);
+                        }
+                        break;
+
+                    case 3:
+                        if (device3.pm_1_0norm < measure3.pm_1_0) {
+                            color = "red"
+                            radius = measure3.pm_1_0 - device3.pm_1_0norm;
+                            alert(device3.width, device3.hight, color, radius);
+                        }
+                        else if (device3.pm_2_5norm < measure3.pm_2_5) {
+                            color = "orange"
+                            radius = measure3.pm_2_5 - device3.pm_2_5norm;
+                            alert(device3.width, device3.hight, color, radius);
+                        }
+                        else if (device3.pm_10norm < measure3.pm_10) {
+                            color = "yellow"
+                            radius = measure3.pm_10 - device3.pm_10norm;
+                            alert(device3.width, device3.hight, color, radius);
+                        }
+                        else if (device3.tempnorm < measure3.temp) {
+                            color = "yellow"
+                            radius = measure3.tempnorm - device3.temp;
+                            alert(device3.width, device3.hight, color, radius);
+                        }
+                        else if (device3.humnorm < measure3.hum) {
+                            color = "yellow"
+                            radius = measure3.humnorm - device3.hum;
+                            alert(device3.width, device3.hight, color, radius);
+                        }
+                        break;
                 }
+            }
 
-                function alert(wid, hig, col, rad) {
-                    var circ = canvas.append("circle")
-                        .attr("cx", wid)
-                        .attr("cy", hig)
-                        .attr("r", 3)
-                        .attr("stroke", "black")
-                        .attr("fill", col);
+            */
 
-                    var circle = canvas.append("circle")
-                        .attr("cx", wid)
-                        .attr("cy", hig)
-                        .attr("r", 10)
-                        .attr("fill", col)
-                        .attr("opacity", 0.5);
 
-                    trans(circle, rad);
+
+            function deviceChooser(device, measure) {
+                if (device.pm_1_0norm < measure.pm_1_0) {
+                    color = "red"
+                    radius = (measure.pm_1_0 - device.pm_1_0norm);
+                    alert(device.width, device.hight, color, radius);
                 }
-
-
-                function deviceChooser(id) {
-                    switch (id) {
-
-                        case 1:
-                            if (device1.param25norm < measure1.param25) {
-                                color = "red"
-                                radius = measure1.param25 - device1.param25norm;
-                                alert(device1.width, device1.hight, color, radius);
-                            }
-                            else if (device1.param5norm < measure1.param5) {
-                                color = "orange"
-                                radius = measure1.param5 - device1.param5norm;
-                                alert(device1.width, device1.hight, color, radius);
-                            }
-                            else if (device1.param10norm < measure1.param10) {
-                                color = "yellow"
-                                radius = measure1.param10 - device1.param10norm;
-                                alert(device1.width, device1.hight, color, radius);
-                            }
-                            break;
-
-                        case 2:
-                            if (device2.param25norm < measure2.param25) {
-                                color = "red"
-                                radius = measure2.param25 - device2.param25norm;
-                                alert(device2.width, device2.hight, color, radius);
-                            }
-                            else if (device2.param5norm < measure2.param5) {
-                                color = "orange"
-                                radius = measure2.param5 - device2.param5norm;
-                                alert(device2.width, device2.hight, color, radius);
-                            }
-                            else if (device2.param10norm < measure2.param10) {
-                                color = "yellow"
-                                radius = measure2.param10 - device2.param10norm;
-                                alert(device2.width, device2.hight, color, radius);
-                            }
-                            break;
-
-                        case 3:
-                            if (device3.param25norm < measure3.param25) {
-                                color = "red"
-                                radius = measure3.param25 - device3.param25norm;
-                                alert(device3.width, device3.hight, color, radius);
-                            }
-                            else if (device3.param5norm < measure3.param5) {
-                                color = "orange"
-                                radius = measure3.param5 - device3.param5norm;
-                                alert(device3.width, device3.hight, color, radius);
-                            }
-                            else if (device3.param10norm < measure3.param10) {
-                                color = "yellow"
-                                radius = measure3.param10 - device3.param10norm;
-                                alert(device3.width, device3.hight, color, radius);
-                            }
-                            break;
-                    }
+                else if (device.pm_2_5norm < measure.pm_2_5) {
+                    color = "orange"
+                    radius = measure.pm_2_5 - device.pm_2_5norm;
+                    alert(device.width, device.hight, color, radius);
                 }
-
-
-
-
-
-                var numberOfTheDevices = 3
-
-                measure1.param25 = 5;
-                measure1.param5 = 5;
-                measure2.param10 = 10;
-                measure2.param25 = 2;
-                measure3.param5 = 15;
-                measure3.param10 = 5;
-
-                for (var i = 1; i <= numberOfTheDevices; i++) {
-                    id = i;
-                    deviceChooser(id)
+                else if (device.pm_10norm < measure.pm_10) {
+                    color = "yellow"
+                    radius = measure.pm_10 - device.pm_10norm;
+                    alert(device.width, device.hight, color, radius);
                 }
+                else if (device.tempnorm < measure.temp) {
+                    color = "yellow"
+                    radius = measure.tempnorm - device.temp;
+                    alert(device.width, device.hight, color, radius);
+                }
+                else if (device.humnorm < measure.hum) {
+                    color = "yellow"
+                    radius = measure.humnorm - device.hum;
+                    alert(device.width, device.hight, color, radius);
+                }
+                //console.log("device chooser");
+            }
+
+            var numberOfTheDevices = 3
+
+            //measure1.pm_1_0 = 5;
+            //measure1.pm_2_5 = 5;
+            //measure2.pm_10 = 10;
+            //measure2.pm_1_0 = 2;
+            //measure3.pm_2_5 = 15;
+            //measure3.pm_10 = 5;
 
 
 
-            </script>
+            function update(device,measure) {
+                $(document).ready(function () {
+                    //$("#btnGetDetails").click(function () {
+                    $.ajax({
+                        //base address/controller/Action
+                        url: 'https://localhost:44327/Measurements/GetLast',
+                        type: 'GET',
+                        data: {
+                            //Passing Input parameter
+                            id: measure.id
+                        },
+                        success: function (result) {
+                            //write something
+                            //alert(result);
+                            //alert("success");
+                            var last = JSON.parse(result);
 
+                            //var pm = newmeasure.pm_10;
+                            //console.log(pm);
+                            //console.log(newmeasure.pm_2_5);
+                            //console.log(typeof (newmeasure.pm_2_5));
+                            //console.log(typeof (measure1.pm_2_5));
+                            measure.pm_1_0 = last.pm_1_0;
+                            measure.pm_10 = last.pm_10;
+                            measure.temp = last.temp;
+                            measure.hum = last.hum;
+                            measure.pm_2_5 = last.pm_2_5;
+                            measure.id = last.sensorId;
+                            deviceChooser(device, measure);
+                            //deviceChooser(device2, measure2);
+                            //deviceChooser(device3, measure3);
+                            //console.log("wewnatrz get");
+                            //console.log(newmeasure);
+                        },
+                        error: function () {
+                            console.log("error");
+                        }
+                    });
+                    return false;
+                    //});
+                });
+            }
+            update(device1,measure1);
+            update(device2,measure2);
+            update(device3,measure3);
+            console.log("mea1:");
+            console.log(measure1);
+            console.log("mea2:");
+            console.log(measure2);
+            console.log("mea3:");
+            console.log(measure3);
+            
+           
 
+            /*
+            for (var i = 1; i <= numberOfTheDevices; i++) {
+                id = i;
+                deviceChooser(id)
+            }
+            */
 
+            console.log("KONIEC");
+        </script>
 
     </div>
 
-    <img src="~/data/images/OfficeLayoutWithIDs.png" alt="Workplace" usemap="#workmap" />
 
-    <map name="#workmap">
+    <svg width="500" height="200">
+        <circle cx="20" cy="20" r="20" fill="red" opacity="0.5" />
+        <circle cx="70" cy="20" r="20" fill="orange" opacity="0.5" />
+        <circle cx="120" cy="20" r="20" fill="yellow" opacity="0.5" />
+        <circle cx="170" cy="20" r="20" fill="blue" opacity="0.5" />
+        <circle cx="170" cy="20" r="20" fill="green" opacity="0.5" />
+        <circle cx="220" cy="20" r="20" fill="blue" opacity="0.5" />
+        <text x="20" y="20"
+              font-family="sans-serif"
+              font-size="10px"
+              text-anchor="middle"
+              fill="black">PM1.0</text>
+        <text x="70" y="20"
+              font-family="sans-serif"
+              font-size="10px"
+              text-anchor="middle"
+              fill="black">PM2.5</text>
+        <text x="120" y="20"
+              font-family="sans-serif"
+              font-size="10px"
+              text-anchor="middle"
+              fill="black">PM10</text>
+        <text x="170" y="20"
+              font-family="sans-serif"
+              font-size="10px"
+              text-anchor="middle"
+              fill="black">Tmp</text>
+        <text x="220" y="20"
+              font-family="sans-serif"
+              font-size="10px"
+              text-anchor="middle"
+              fill="black">Hmdt</text>
+
+    </svg>
+
+
+    <img src="~/data/images/OfficeLayoutWithIDs.png" alt="Workplace" style="position:absolute; top:0; left:0; margin-left:402px; margin-top:198px; margin-bottom:20px; opacity:0; *filter: Alpha(opacity=0);" usemap="#workmap" />
+
+
+
+    <map name="workmap">
         <area shape="rect" coords="140,320,180,380" alt="Computer" href="@Url.Action("ReturnMeasurements", "Measurements")?id=1">
         <area shape="rect" coords="190,320,290,380" alt="Phone" href="@Url.Action("ReturnMeasurements", "Measurements")?id=2">
+        <area shape="rect" coords="205,180,269,288;" alt="Phone" href="@Url.Action("ReturnMeasurements", "Measurements")?id=3">
     </map>
 
 </body>

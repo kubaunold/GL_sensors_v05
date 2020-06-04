@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "Images";
+}
+
+
+<head>
+    Office Layout:
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/officeMap.css" />
+
+</head>
+
+
+<body>
+
+    <div class="box" , id="tlo">
+        <script>
+
+
+                var device1 = { id: "1", hight: "340", width: "379", pm_1_0norm: "2", pm_2_5norm: "2", pm_10norm: "2" }
+                var measure1 = { pm_1_0: "0", pm_2_5: "0", pm_10: "0" }
+                var device2 = { id: "2", hight: "535", width: "240", pm_1_0norm: "2", pm_2_5norm: "2", pm_10norm: "2" }
+                var measure2 = { pm_1_0: "0", pm_2_5: "0", pm_10: "0" }
+                var device3 = { id: "3", hight: "506", width: "319", pm_1_0norm: "2", pm_2_5norm: "2", pm_10norm: "2" }
+                var measure3 = { pm_1_0: "0", pm_2_5: "0", pm_10: "0" }
+
+                var radius = 0;
+
+                var canvas = d3.select("#tlo")
+                    .append("svg")
+                    .attr("width", 1000)
+                    .attr("height", 1000);
+
+                function trans(circleAct, rad) {
+                    circleAct.transition()
+                        .duration(1000)
+                        .attr("r", 20 + (rad * 2))
+                        .transition()
+                        .duration(1)
+                        .attr("r", 0)
+                        .each("end", function () { trans(circleAct, rad); });
+                }
+
+                function alert(wid, hig, col, rad) {
+                    var circ = canvas.append("circle")
+                        .attr("cx", wid)
+                        .attr("cy", hig)
+                        .attr("r", 3)
+                        .attr("stroke", "black")
+                        .attr("fill", col);
+
+                    var circle = canvas.append("circle")
+                        .attr("cx", wid)
+                        .attr("cy", hig)
+                        .attr("r", 10)
+                        .attr("fill", col)
+                        .attr("opacity", 0.5);
+
+                    trans(circle, rad);
+                }
+
+
+                function deviceChooser(id) {
+                    switch (id) {
+
+                        case 1:
+                            if (device1.pm_1_0norm < measure1.pm_1_0) {
+                                color = "red"
+                                radius = measure1.pm_1_0 - device1.pm_1_0norm;
+                                alert(device1.width, device1.hight, color, radius);
+                            }
+                            else if (device1.pm_2_5norm < measure1.pm_2_5) {
+                                color = "orange"
+                                radius = measure1.pm_2_5 - device1.pm_2_5norm;
+                                alert(device1.width, device1.hight, color, radius);
+                            }
+                            else if (device1.pm_10norm < measure1.pm_10) {
+                                color = "yellow"
+                                radius = measure1.pm_10 - device1.pm_10norm;
+                                alert(device1.width, device1.hight, color, radius);
+                            }
+                            break;
+
+                        case 2:
+                            if (device2.pm_1_0norm < measure2.pm_1_0) {
+                                color = "red"
+                                radius = measure2.pm_1_0 - device2.pm_1_0norm;
+                                alert(device2.width, device2.hight, color, radius);
+                            }
+                            else if (device2.pm_2_5norm < measure2.pm_2_5) {
+                                color = "orange"
+                                radius = measure2.pm_2_5 - device2.pm_2_5norm;
+                                alert(device2.width, device2.hight, color, radius);
+                            }
+                            else if (device2.pm_10norm < measure2.pm_10) {
+                                color = "yellow"
+                                radius = measure2.pm_10 - device2.pm_10norm;
+                                alert(device2.width, device2.hight, color, radius);
+                            }
+                            break;
+
+                        case 3:
+                            if (device3.pm_1_0norm < measure3.pm_1_0) {
+                                color = "red"
+                                radius = measure3.pm_1_0 - device3.pm_1_0norm;
+                                alert(device3.width, device3.hight, color, radius);
+                            }
+                            else if (device3.pm_2_5norm < measure3.pm_2_5) {
+                                color = "orange"
+                                radius = measure3.pm_2_5 - device3.pm_2_5norm;
+                                alert(device3.width, device3.hight, color, radius);
+                            }
+                            else if (device3.pm_10norm < measure3.pm_10) {
+                                color = "yellow"
+                                radius = measure3.pm_10 - device3.pm_10norm;
+                                alert(device3.width, device3.hight, color, radius);
+                            }
+                            break;
+                    }
+                }
+
+
+
+
+
+                var numberOfTheDevices = 3
+
+                measure1.pm_1_0 = 5;
+                measure1.pm_2_5 = 5;
+                measure2.pm_10 = 10;
+                measure2.pm_1_0 = 2;
+                measure3.pm_2_5 = 15;
+                measure3.pm_10 = 5;
+
+                for (var i = 1; i <= numberOfTheDevices; i++) {
+                    id = i;
+                    deviceChooser(id)
+                }
+
+
+
+            </script>
+
+
+
+
+    </div>
+
+    <img src="~/data/images/OfficeLayoutWithIDs.png" alt="Workplace" usemap="#workmap" />
+
+    <map name="#workmap">
+        <area shape="rect" coords="140,320,180,380" alt="Computer" href="@Url.Action("ReturnMeasurements", "Measurements")?id=1">
+        <area shape="rect" coords="190,320,290,380" alt="Phone" href="@Url.Action("ReturnMeasurements", "Measurements")?id=2">
+    </map>
+
+</body>
