@@ -14,15 +14,22 @@
         <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
         <script type="text/javascript">
-            
+
+            //LIST OF NORMS
+            var NORM_TEMP = "25";
+            var NORM_HUM = "50";
+            var NORM_PM_1_0 = "10";
+            var NORM_PM_2_5 = "50";
+            var NORM_PM_10 = "100";
+
+            //INITIAL CONDITIONS
             var radius = 0;
             var numberOfTheDevices = 3;
-
-            var device1 = { id: "1", hight: "224", width: "248", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
+            var device1 = { id: "1", hight: "224", width: "248", pm_2_5norm: NORM_PM_2_5, pm_1_0norm: NORM_PM_1_0, pm_10norm: NORM_PM_10, tempnorm: NORM_TEMP, humnorm: NORM_HUM }
             var measure1 = { id: "1", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
-            var device2 = { id: "2", hight: "353", width: "156", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
+            var device2 = { id: "2", hight: "353", width: "156", pm_2_5norm: NORM_PM_2_5, pm_1_0norm: NORM_PM_1_0, pm_10norm: NORM_PM_10, tempnorm: NORM_TEMP, humnorm: NORM_HUM }
             var measure2 = { id: "2", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
-            var device3 = { id: "3", hight: "333", width: "208", pm_2_5norm: "2", pm_1_0norm: "2", pm_10norm: "2", tempnorm: "25", humnorm: "60" }
+            var device3 = { id: "3", hight: "333", width: "208", pm_2_5norm: NORM_PM_2_5, pm_1_0norm: NORM_PM_1_0, pm_10norm: NORM_PM_10, tempnorm: NORM_TEMP, humnorm: NORM_HUM }
             var measure3 = { id: "3", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
             var newmeasure = { id: "0", pm_2_5: "0", pm_1_0: "0", pm_10: "0", temp: "0", hum: "0" }
 
@@ -175,6 +182,11 @@
                     color = "green";
                     var diff = parseInt(measure.temp) - parseInt(device.tempnorm)
                     radius = Math.max(0, diff);
+                    alert(device.width, device.hight, color, radius);
+                }
+                if (device.pm_1_0norm < measure.pm_1_0) {
+                    color = "red"
+                    radius = (measure.pm_1_0 - device.pm_1_0norm);
                     alert(device.width, device.hight, color, radius);
                 }
             }
