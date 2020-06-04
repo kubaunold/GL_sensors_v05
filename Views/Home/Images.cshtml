@@ -278,41 +278,16 @@
 
 
 
-            function deviceChooser(device, measure) {
+            function deviceChooser2(device, measure) {
                 if (device.tempnorm < measure.temp) {
                     color = "green";
-                    radius = measure.tempnorm - device.temp;
+                    var diff = parseInt(measure.temp) - parseInt(device.tempnorm)
+                    radius = Math.max(0, diff);
                     alert(device.width, device.hight, color, radius);
                 }
-                else if (device.pm_1_0norm < measure.pm_1_0) {
-                    color = "red"
-                    radius = (measure.pm_1_0 - device.pm_1_0norm);
-                    alert(device.width, device.hight, color, radius);
-                }
-                else if (device.pm_2_5norm < measure.pm_2_5) {
-                    color = "orange"
-                    radius = measure.pm_2_5 - device.pm_2_5norm;
-                    alert(device.width, device.hight, color, radius);
-                }
-                else if (device.pm_10norm < measure.pm_10) {
-                    color = "yellow"
-                    radius = measure.pm_10 - device.pm_10norm;
-                    alert(device.width, device.hight, color, radius);
-                }
-                else if (device.tempnorm < measure.temp) {
-                    color = "green";
-                    radius = measure.tempnorm - device.temp;
-                    alert(device.width, device.hight, color, radius);
-                }
-                else if (device.humnorm < measure.hum) {
-                    color = "yellow"
-                    radius = measure.humnorm - device.hum;
-                    alert(device.width, device.hight, color, radius);
-                }
-                //console.log("device chooser");
             }
 
-            function deviceChooser2(device, measure) {
+            function deviceChooser(device, measure) {
                 if (device.pm_1_0norm < measure.pm_1_0) {
                     color = "red"
                     radius = (measure.pm_1_0 - device.pm_1_0norm);
