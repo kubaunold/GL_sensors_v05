@@ -194,27 +194,32 @@
             function deviceChooser(device, measure) {
                 if (device.pm_1_0norm < measure.pm_1_0) {
                     color = "red"
-                    radius = (measure.pm_1_0 - device.pm_1_0norm);
+                    var diff = parseInt(measure.pm_1_0) - parseInt(device.pm_1_0norm)
+                    radius = Math.max(0, diff);
                     alert(device.width, device.hight, color, radius);
                 }
                 else if (device.pm_2_5norm < measure.pm_2_5) {
                     color = "orange"
-                    radius = measure.pm_2_5 - device.pm_2_5norm;
+                    var diff = parseInt(measure.pm_2_5) - parseInt(device.pm_2_5norm)
+                    radius = Math.max(0, diff);
                     alert(device.width, device.hight, color, radius);
                 }
                 else if (device.pm_10norm < measure.pm_10) {
                     color = "yellow"
-                    radius = measure.pm_10 - device.pm_10norm;
+                    var diff = parseInt(measure.pm_10) - parseInt(device.pm_10norm)
+                    radius = Math.max(0, diff);
                     alert(device.width, device.hight, color, radius);
                 }
                 else if (device.tempnorm < measure.temp) {
                     color = "green";
-                    radius = measure.tempnorm - device.temp;
+                    var diff = parseInt(measure.temp) - parseInt(device.tempnorm)
+                    radius = Math.max(0, diff);
                     alert(device.width, device.hight, color, radius);
                 }
                 else if (device.humnorm < measure.hum) {
                     color = "yellow"
-                    radius = measure.humnorm - device.hum;
+                    var diff = parseInt(measure.hum) - parseInt(device.humnorm)
+                    radius = Math.max(0, diff);
                     alert(device.width, device.hight, color, radius);
                 }
                 //console.log("device chooser");
@@ -248,8 +253,8 @@
                             measure.hum = last.hum;
                             measure.pm_2_5 = last.pm_2_5;
                             measure.id = last.sensorId;
-                            //deviceChooser(device, measure);
-                            deviceChooser2(device, measure);
+                            deviceChooser(device, measure);
+                            //deviceChooser2(device, measure);
                         },
                         error: function () {
                             console.log("error");
@@ -319,7 +324,7 @@
     <map name="workmap">
         <area shape="rect" coords="140,320,180,380" alt="Computer" href="@Url.Action("ReturnMeasurements", "Measurements")?id=1">
         <area shape="rect" coords="190,320,290,380" alt="Phone" href="@Url.Action("ReturnMeasurements", "Measurements")?id=2">
-        <area shape="rect" coords="205,180,269,288;" alt="Phone" href="@Url.Action("ReturnMeasurements", "Measurements")?id=3">
+        <area shape="rect" coords="205,180,269,288;" alt="Phone" href="@Url.Action("ReturnMeasurements", "Measurements")?id=4">
     </map>
 
 </body>
